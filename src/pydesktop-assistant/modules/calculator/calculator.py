@@ -1,8 +1,8 @@
 class Calculator:
-    """Калькулятор с обработкой математических выражений."""
+    """Калькулятор с обработкой математических выражений"""
 
     def calculate(self, expression: str) -> float:
-        """Вычисляет выражение в формате 'a op b' (например, '2 + 3')."""
+        """Вычисляет выражение в формате 'a op b'"""
         try:
             a, op, b = self._parse_expression(expression)
             return self._perform_operation(a, op, b)
@@ -10,8 +10,8 @@ class Calculator:
             raise e
 
     def _parse_expression(self, expr: str) -> tuple[float, str, float]:
-        """Парсит выражение на операнды и оператор."""
-        expr = expr.replace('^', '**')  # Поддержка степеней
+        """Парсит выражение на операнды и оператор"""
+        expr = expr.replace('^', '**')
         operators = {'+', '-', '*', '/', '**'}
 
         for op in sorted(operators, key=len, reverse=True):
@@ -22,7 +22,7 @@ class Calculator:
         raise ValueError("Invalid expression")
 
     def _perform_operation(self, a: float, op: str, b: float) -> float:
-        """Выполняет операцию через методы класса."""
+        """Выполняет операцию через методы класса"""
         operations = {
             '+': self.add,
             '-': self.subtract,
@@ -37,23 +37,23 @@ class Calculator:
         return operations[op](a, b)
 
     def add(self, a: float, b: float) -> float:
-        """Сложение."""
+        """Сложение"""
         return a + b
 
     def subtract(self, a: float, b: float) -> float:
-        """Вычитание."""
+        """Вычитание"""
         return a - b
 
     def multiply(self, a: float, b: float) -> float:
-        """Умножение."""
+        """Умножение"""
         return a * b
 
     def divide(self, a: float, b: float) -> float:
-        """Деление с проверкой на ноль."""
+        """Деление с проверкой на ноль"""
         if b == 0:
             raise ValueError("Cannot divide by zero")
         return a / b
 
     def power(self, a: float, b: float) -> float:
-        """Возведение в степень."""
+        """Возведение в степень"""
         return a ** b
