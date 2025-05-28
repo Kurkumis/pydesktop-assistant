@@ -4,6 +4,7 @@ from ..modules.calculator.gui import CalculatorGUI
 from ..modules.notes.gui import NotesGUI
 from ..modules.task_manager.gui import TaskManagerGUI
 from ..modules.timer.gui import TimerGUI
+from ..modules.calendar.gui import CalendarGUI
 
 
 class MainWindow(tk.Tk):
@@ -40,6 +41,16 @@ class MainWindow(tk.Tk):
             text="Таймер",
             command=self.open_timer
         ).pack(pady=10)
+
+        ttk.Button(
+            self,
+            text="Календарь",
+            command=self.open_calendar
+        ).pack(pady=10)
+
+    def open_calendar(self):
+        """Открыть окно календаря"""
+        CalendarGUI(self)
 
     def open_timer(self):
         """Открыть окно таймера"""
