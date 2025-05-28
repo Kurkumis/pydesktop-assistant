@@ -36,7 +36,7 @@ class TaskManager:
             """)
 
     def _get_available_id(self) -> int:
-        """Находит минимальный доступный ID."""
+        """Находит минимальный доступный ID"""
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
 
@@ -52,7 +52,7 @@ class TaskManager:
                 expected_id += 1
 
     def toggle_task_status(self, task_id: int):
-        """Изменяет статус выполнения задачи."""
+        """Изменяет статус выполнения задачи"""
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -61,7 +61,7 @@ class TaskManager:
             )
 
     def create_task(self, title: str, priority: str, due_date: datetime) -> Task:
-        """Создание задачи с минимальным доступным ID."""
+        """Создание задачи с минимальным доступным ID"""
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             task_id = self._get_available_id()

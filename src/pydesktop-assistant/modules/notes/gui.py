@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from .note_manager import NoteManager, Note
+from .notes import NoteManager
 
 
 class NotesGUI(tk.Toplevel):

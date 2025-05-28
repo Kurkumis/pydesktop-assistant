@@ -3,6 +3,7 @@ from tkinter import ttk
 from ..modules.calculator.gui import CalculatorGUI
 from ..modules.notes.gui import NotesGUI
 from ..modules.task_manager.gui import TaskManagerGUI
+from ..modules.timer.gui import TimerGUI
 
 
 class MainWindow(tk.Tk):
@@ -33,6 +34,16 @@ class MainWindow(tk.Tk):
             text="Менеджер задач",
             command=self.open_task_manager
         ).pack(pady=10)
+
+        ttk.Button(
+            self,
+            text="Таймер",
+            command=self.open_timer
+        ).pack(pady=10)
+
+    def open_timer(self):
+        """Открыть окно таймера"""
+        TimerGUI(self)
 
     def open_task_manager(self):
         """Открыть окно менеджера задач"""

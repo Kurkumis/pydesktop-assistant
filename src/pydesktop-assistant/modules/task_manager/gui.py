@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
 from datetime import datetime
-from .task_manager import TaskManager, Task
+from .task_manager import TaskManager
 
 
 class TaskManagerGUI(tk.Toplevel):
