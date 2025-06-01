@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from tkcalendar import Calendar, DateEntry
+from tkcalendar import Calendar
 import datetime
-from .calendar import CalendarManager, CalendarEvent
+from .calendar import CalendarManager
 
 
 class CalendarGUI(tk.Toplevel):

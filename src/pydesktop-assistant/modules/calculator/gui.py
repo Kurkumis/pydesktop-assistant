@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from .calculator import Calculator
 
 
@@ -49,18 +49,24 @@ class CalculatorGUI(tk.Toplevel):
             self.columnconfigure(i, weight=1)
 
     def _on_button_click(self, char: str):
-        """Обработчик нажатий"""
         if char == 'C':
             self.current_expression = ""
             self.result_var.set('0')
         elif char == '=':
             try:
                 result = self.calculator.calculate(self.current_expression)
-                self.result_var.set(str(result))
-                self.current_expression = str(result)
+
+                if self.calculator.error_message:
+                    self.result_var.set("Error")
+                    messagebox.showerror("Ошибка", self.calculator.error_message)
+                else:
+                    self.result_var.set(str(result))
+                    self.current_expression = str(result)
             except Exception as e:
                 self.result_var.set("Error")
-                self.current_expression = ""
         else:
-            self.current_expression += char
+            if self.current_expression == "0" or self.result_var.get() == "Error":
+                self.current_expression = char
+            else:
+                self.current_expression += char
             self.result_var.set(self.current_expression)

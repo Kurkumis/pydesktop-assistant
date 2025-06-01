@@ -1,59 +1,49 @@
 class Calculator:
-    """Калькулятор с обработкой математических выражений"""
+    """Класс калькулятора"""
+
+    def __init__(self):
+        self.error_message = None
+        self.operations = {
+            '+': lambda a, b: a + b,
+            '-': lambda a, b: a - b,
+            '*': lambda a, b: a * b,
+            '/': lambda a, b: a / b if b != 0 else self._handle_error("Деление на ноль"),
+            '^': lambda a, b: a ** b,
+            '**': lambda a, b: a ** b
+        }
 
     def calculate(self, expression: str) -> float:
-        """Вычисляет выражение в формате 'a op b'"""
+        """Вычисляет математическое выражение"""
+        self.error_message = None
         try:
             a, op, b = self._parse_expression(expression)
-            return self._perform_operation(a, op, b)
+            operation = self.operations.get(op)
+
+            if not operation:
+                return self._handle_error(f"Неподдерживаемый оператор: {op}")
+
+            return operation(a, b)
         except ValueError as e:
-            raise e
+            return self._handle_error(str(e))
+        except Exception as e:
+            return self._handle_error(f"Ошибка вычисления: {str(e)}")
 
     def _parse_expression(self, expr: str) -> tuple[float, str, float]:
         """Парсит выражение на операнды и оператор"""
-        expr = expr.replace('^', '**')
-        operators = {'+', '-', '*', '/', '**'}
+        expr = expr.strip().replace(' ', '')
 
-        for op in sorted(operators, key=len, reverse=True):
+        # Список поддерживаемых операторов в порядке приоритета распознавания
+        operators = ['**', '^', '*', '/', '+', '-']
+
+        for op in operators:
             if op in expr:
-                a, b = expr.split(op, 1)
-                return float(a.strip()), op, float(b.strip())
+                parts = expr.split(op, 1)
+                if len(parts) == 2:
+                    return float(parts[0]), op, float(parts[1])
 
-        raise ValueError("Invalid expression")
+        raise ValueError("Не удалось распознать выражение")
 
-    def _perform_operation(self, a: float, op: str, b: float) -> float:
-        """Выполняет операцию через методы класса"""
-        operations = {
-            '+': self.add,
-            '-': self.subtract,
-            '*': self.multiply,
-            '/': self.divide,
-            '**': self.power
-        }
-
-        if op not in operations:
-            raise ValueError(f"Unsupported operator: {op}")
-
-        return operations[op](a, b)
-
-    def add(self, a: float, b: float) -> float:
-        """Сложение"""
-        return a + b
-
-    def subtract(self, a: float, b: float) -> float:
-        """Вычитание"""
-        return a - b
-
-    def multiply(self, a: float, b: float) -> float:
-        """Умножение"""
-        return a * b
-
-    def divide(self, a: float, b: float) -> float:
-        """Деление с проверкой на ноль"""
-        if b == 0:
-            raise ValueError("Cannot divide by zero")
-        return a / b
-
-    def power(self, a: float, b: float) -> float:
-        """Возведение в степень"""
-        return a ** b
+    def _handle_error(self, message: str) -> float:
+        """Обработка ошибок с сохранением сообщения"""
+        self.error_message = message
+        return float('nan')  # Возвращаем NaN при ошибке
