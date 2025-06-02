@@ -29,7 +29,7 @@ class NoteManager:
             """)
 
     def create_note(self, title: str, content: str) -> Note:
-        """Создание заметки с минимальным доступным ID."""
+        """Создание заметки с минимальным доступным ID"""
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             note_id = self._get_available_id()
@@ -53,7 +53,7 @@ class NoteManager:
             return [Note(*row) for row in cursor.fetchall()]
 
     def _get_available_id(self) -> int:
-        """Находит минимальный доступный ID."""
+        """Находит минимальный доступный ID"""
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
 
