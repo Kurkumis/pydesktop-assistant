@@ -6,11 +6,12 @@ from src.pydesktop_assistant.modules.calendar.calendar import CalendarManager
 
 
 @pytest.fixture(scope="module")
-def db_path():
-    path = "test_calendar.db"
+def db_path(tmp_path_factory):
+    """Фикстура для создания временной базы данных"""
+    path = tmp_path_factory.mktemp("data") / "test_calendar.db"
     if os.path.exists(path):
         os.remove(path)
-    yield path
+    return str(path)
 
 
 def test_add_event(db_path):
