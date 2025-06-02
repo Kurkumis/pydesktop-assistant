@@ -1,1 +1,0 @@
-python -m src.pydesktop_assistant.gui.main_window - для запуска интерфейса
