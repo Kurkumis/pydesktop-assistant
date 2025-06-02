@@ -3,3 +3,4 @@ tkcalendar>=1.6.1
 pytest>=8.3.5
 tkcalendar>=1.6.1
 tox>=4.26.0
+ttkthemes>=3.2.2
